@@ -30,17 +30,38 @@ const criarReceita = async (req, res) => { //js não é assíncrono (não espera
 
 }
 
-const alterarReceita = (req, res) => {
-    const receitas = Receita.find();
-    res.status(200);
-    res.send(receitas);
+//PUT - precisa passar todas as informações do model
+const alterarReceita = async (req, res) => {
+    const receitas = await Receita.findById(req.params.id);
 
+    receitas.titulo = req.body.titulo;
+    receitas.tempoPreparo = req.body.tempoPreparo;
+    receitas.porcoes = req.body.porcoes;
+    receitas.imagem = req.body.imagem;
+
+    /* PATH - atualiza somente se for passado no corpo da requisição
+    req.body.imagem && `${receitas.imagem = req.body.imagem}` */ 
+
+    await receitas.save();
+
+    res.status(200);
+    res.send(receitas)
 }
 
-const deletarReceita = (req, res) => {
-    const receitas = Receita.find();
+const deletarReceita = async (req, res) => {
+    const receitas = await Receita.findByIdAndDelete(req.params.id);
+
     res.status(200);
-    res.send(receitas);
+
+    if(receitas != null){
+        res.send({
+            message: "Receita deletada com sucesso",
+            receitas: receitas
+        })
+    }else{
+        res.send({message: "Receita não encontrada"});
+    }
+    
 
 }
 

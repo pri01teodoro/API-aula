@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const URL = "mongodb://localhost:27017/db_receitas";
+const URL = "mongodb://localhost:27001/db_receitas";
 
 await mongoose.connect(URL, {
     useNewUrlParser: true,

@@ -8,6 +8,6 @@ services:
     - MONGO_DATA_DIR=./data/db
     - MONGO_LOG_DIR=./log
     ports:
-      - "27017:27017"
+      - "27001:27017"
     volumes:
       - ./data_mongodb/db:/data/db
